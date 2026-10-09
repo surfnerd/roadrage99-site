@@ -1,0 +1,56 @@
+/* Road Rage site. Palette from Assets/UI/Menu.uss: yellow 255,214,10, red 255,74,61, near-black 20,20,20. */
+@font-face{font-family:"Bungee";src:url("fonts/Bungee-Regular.ttf") format("truetype");font-display:swap}
+@font-face{font-family:"Russo One";src:url("fonts/RussoOne-Regular.ttf") format("truetype");font-display:swap}
+:root{--bg:#141414;--panel:#1f1f1f;--line:#3a3a3a;--text:#f2f2f2;--muted:#b5b5b5;--yellow:#ffd60a;--red:#ff4a3d;
+  --display:"Bungee","Impact","Arial Black",sans-serif;--body:"Russo One","Trebuchet MS",system-ui,sans-serif;--read:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+*{box-sizing:border-box}
+html{color-scheme:dark;background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--text);font:1rem/1.6 var(--read);-webkit-text-size-adjust:100%}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--yellow)}
+a:hover,a:focus-visible{color:#fff}
+:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
+.wrap{width:100%;max-width:60rem;margin:0 auto;padding:0 1rem}
+.hazard{height:14px;background:url("img/hazard.png") repeat;background-size:40px 40px;image-rendering:pixelated}
+.skip{position:absolute;left:-999px}.skip:focus{left:1rem;top:1rem;background:var(--yellow);color:#000;padding:.5rem;z-index:9}
+header.site{background:#0d0d0d}
+header.site .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.5rem 1.5rem;padding-top:.75rem;padding-bottom:.75rem}
+.brand{font:1.4rem/1 var(--display);color:var(--yellow);text-decoration:none;transform:rotate(-2deg);display:inline-block}
+nav a{font:.95rem var(--body);color:var(--text);text-decoration:none;margin-right:1rem;letter-spacing:.04em;text-transform:uppercase;padding:.25rem 0;display:inline-block}
+nav a[aria-current="page"],nav a:hover{color:var(--yellow);border-bottom:2px solid var(--red)}
+h1,h2,h3{font-family:var(--display);font-weight:400;line-height:1.1;color:var(--yellow);margin:2rem 0 .75rem}
+h1{font-size:clamp(2rem,8vw,3.2rem)}
+h2{font-size:clamp(1.4rem,5vw,1.9rem)}
+h3{font-size:1.15rem;color:var(--text)}
+.lead{font:1.15rem/1.5 var(--body)}
+.hero{text-align:center;padding:2.5rem 0 1.5rem}
+.hero h1{font-size:clamp(3rem,16vw,6.5rem);transform:rotate(-2deg);margin:.25rem 0 0;text-shadow:4px 4px 0 #000}
+.tagline{font:clamp(1rem,4vw,1.5rem) var(--display);color:var(--red);letter-spacing:.04em;margin:.5rem 0 1.5rem}
+.btn{display:inline-block;font:1.1rem var(--display);background:var(--yellow);color:#000;text-decoration:none;padding:.8rem 1.6rem;border:3px solid var(--yellow);border-radius:.4rem;margin:.25rem}
+.btn:hover{background:#000;color:var(--yellow)}
+.btn.alt{background:transparent;color:var(--yellow)}.btn.alt:hover{background:var(--yellow);color:#000}
+.shot{margin:1.5rem 0}
+.shot img{border:3px solid var(--yellow);border-radius:.5rem;width:100%}
+.shot figcaption{font-size:.9rem;color:var(--muted);margin-top:.4rem}
+.grid{display:grid;gap:1rem;grid-template-columns:1fr}
+@media(min-width:40rem){.grid.two{grid-template-columns:1fr 1fr}.grid.three{grid-template-columns:repeat(3,1fr)}}
+.card{background:var(--panel);border:2px solid var(--line);border-radius:.5rem;padding:1rem 1.1rem}
+.card h3{margin-top:0}
+.card p{margin:.4rem 0 0}
+.badge{display:inline-block;font:.8rem var(--body);background:var(--red);color:#000;padding:.1rem .5rem;border-radius:.25rem;vertical-align:middle;letter-spacing:.05em}
+main{padding-bottom:3rem}
+main li{margin:.35rem 0}
+.doc{max-width:46rem}
+.doc h2{margin-top:2.25rem}
+details{background:var(--panel);border:2px solid var(--line);border-radius:.5rem;margin:.6rem 0;padding:.2rem 1rem}
+summary{cursor:pointer;font:1.05rem var(--body);padding:.6rem 0}
+details[open]{border-color:var(--yellow)}
+table{border-collapse:collapse;width:100%;font-size:.95rem}
+th,td{border:1px solid var(--line);padding:.5rem .6rem;text-align:left;vertical-align:top}
+th{background:var(--panel);color:var(--yellow);font-family:var(--body);font-weight:400}
+.tablewrap{overflow-x:auto}
+footer.site{background:#0d0d0d;color:var(--muted);font-size:.9rem}
+footer.site .wrap{padding-top:1.25rem;padding-bottom:1.5rem}
+footer.site a{margin-right:1rem}
+.todo{background:#3b2a00;border:2px dashed var(--yellow);padding:.5rem .8rem;border-radius:.4rem}
+@media(prefers-reduced-motion:no-preference){.btn{transition:background .15s,color .15s}}

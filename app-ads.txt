@@ -1,0 +1,12 @@
+# app-ads.txt for roadrage99.com
+# Required by the ad networks to verify who may sell Road Rage's ad inventory.
+# Format: <ad system domain>, <publisher account ID>, <DIRECT|RESELLER>, <certification authority ID>
+#
+# TODO (Chris): paste the exact lines from the LevelPlay dashboard
+#   (LevelPlay > Settings > app-ads.txt), which lists every network enabled in mediation,
+#   plus Unity's own lines (Unity Ads publisher ID from the Unity Dashboard > Monetization).
+# Do not publish with the placeholders below. Replace them, or delete them if unknown.
+#
+# Placeholders (format only, NOT real IDs):
+# ironsrc.com, <LEVELPLAY_PUBLISHER_ID>, DIRECT
+# unity3d.com, <UNITY_ADS_PUBLISHER_ID>, DIRECT, 96cabb5fbdde37a7
