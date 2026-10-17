@@ -32,7 +32,7 @@ h3{font-size:1.15rem;color:var(--text)}
 .btn:hover{background:#000;color:var(--yellow)}
 .btn.alt{background:transparent;color:var(--yellow)}.btn.alt:hover{background:var(--yellow);color:#000}
 .shot{margin:1.5rem 0}
-.shot img{border:3px solid var(--yellow);border-radius:.5rem;width:100%}
+.shot img,.shot video{border:3px solid var(--yellow);border-radius:.5rem;width:100%;height:auto;display:block}
 .shot figcaption{font-size:.9rem;color:var(--muted);margin-top:.4rem}
 .grid{display:grid;gap:1rem;grid-template-columns:1fr}
 @media(min-width:40rem){.grid.two{grid-template-columns:1fr 1fr}.grid.three{grid-template-columns:repeat(3,1fr)}}
