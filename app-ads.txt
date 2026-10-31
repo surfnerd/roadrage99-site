@@ -163,3 +163,5 @@ smartadserver.com, 3964, RESELLER
 themediagrid.com, B8N9YH, RESELLER, 35d5010d7789b49d
 themediagrid.com, FALINO, RESELLER, 9fac4a4a87c2a44f
 themediagrid.com, JVHG38, RESELLER, 9fac4a4a87c2a44f
+monetrix.ai, 10761, RESELLER
+start.io, 131192070, RESELLER
