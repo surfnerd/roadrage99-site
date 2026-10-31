@@ -1,0 +1,40 @@
+# Site checklist
+
+The facts roadrage99.com states that change with releases, and where each one's source of truth lives. A daily check compares the two and flags the site when it falls behind. This file is not published (the Pages workflow skips it).
+
+**Last full refresh:** 2026-10-31, covering released versions up to **1.1.3** (`CHANGELOG.md`).
+
+Paths below are in the game repo, `surfnerd/roadragev2`. "Release tag" means the newest `vX.Y.Z` tag (read it with `git show vX.Y.Z:<path>`). Read `CHANGELOG.md` on `origin/staging`, and skip its `## Unreleased` section: that has not shipped. Tester-only features (the steering profile switch, tester unlocks, anything built only with `ROADRAGE_MULTIPLAYER`) are not player-facing and do not go on the site.
+
+## How to check
+
+1. **New release?** The newest `## X.Y.Z (date)` heading in `CHANGELOG.md` (not `## Unreleased`) is newer than the version in "Last full refresh" above. If so, read its player-facing sections (everything above `### Internal`) and check each row below.
+2. **Store state.** `curl -s "https://itunes.apple.com/lookup?id=6818857687&country=ca"` (and `country=ph`) returns the live App Store version and the store's age rating. A `resultCount` of 0 for a country means the game is not sold there. `https://play.google.com/store/apps/details?id=com.goy.chris.roadrage` returns 404 while the Android app has no public listing.
+3. Work down the table. Any row whose source no longer matches the site is a site update.
+
+## Facts
+
+| Fact | What the site says now | Where on the site | Source of truth | How to check |
+|---|---|---|---|---|
+| Level count | 15 | Home lead ("fifteen"), home "15 levels" card, press long description and features | `Assets/Resources/LevelCatalog.asset` at the release tag | `git show vX.Y.Z:Assets/Resources/LevelCatalog.asset \| grep -c displayName` |
+| Level names | Desert Highway, Downtown, Suburbs, Night City, Roadworks, Harbor, Mountain Pass, School Run, Late for Work, Pizza Delivery, Street Race, Golden Gate Park, Central Park, Leonardo, Pursuit | Home "15 levels" card, press features | Same file, `displayName` lines | Compare the list. Snow Day is in the catalog on staging but not in any release yet (2026-10-31) |
+| Bonus places | Practice Lot, Stunt Park, The Gauntlet | Home cards, press, support FAQ | `CHANGELOG.md` (1.0.4 Practice Lot, 1.0.6 Stunt Park, 1.1.0 Gauntlet) | New modes or places in a released section |
+| Cars | 7: Drifter, Rocket, Boulder, Hauler, Muscle, Taxi, plus Capn Snafu's car (The Lonesome Dove, earned by spotting him in every level) | Home "7 cars to drive" card, press long description and features | `Assets/Resources/PlayerCars.asset` (`displayName`, `snafuUnlock`) | `git show vX.Y.Z:Assets/Resources/PlayerCars.asset \| grep displayName` |
+| Upgrade categories | Rage, suspension, speed, toughness, steering | Home cards and speed-shop caption, press | `enum UpgradeAxis` in `Assets/Scripts/Tuning/Save/GarageSave.cs` | Compare the enum |
+| Powers named | Juggernaut, Ghost Car, Nitro, Ramp Plow, Mech Bat, THE BARREL | Home "Powers and cops" card, press | `Assets/Scripts/GameCore/Powers/PowerPalette.cs`, `CHANGELOG.md` | Every named power still exists. Retired powers must not appear: Parting of the Sea (RAGE-351), Siren (1.0.5) |
+| Achievements | 25, two hidden | Home "Achievements" card, press features | `achievements:` list in `Assets/Resources/PlatformCatalog.asset` | Count the `- ` entries between `achievements:` and `leaderboards:` |
+| Lighting looks | "Over 40" | Home card, press | Per-level `*-Looks.asset` files in `Assets/Settings/Environment/Looks/` | Total looks across the 15 levels stays above 40 |
+| Headline features | ROAD RAGE meter (powers fill it too), cars come apart (1.1.3), the Gauntlet (1.1.0), alleys (1.0.7/1.1.0), secret shortcuts, cops, inventor's garage with cork board, speed shop and smash tally (1.1.0), Stunt Park | Home "What you get" cards, press features and long description | `CHANGELOG.md` released sections | A big player-facing addition in a new release gets a card or a line |
+| Multiplayer | Not mentioned anywhere | (none) | `Assets/Scripts/GameCore/Players/MultiplayerFeature.cs`: store builds compile it off unless built with `ROADRAGE_MULTIPLAYER` | When a store build ships co-op, Shotgun, split screen or SNAFU SOCCER: add it to home, press and support, and add online data to the privacy policy |
+| Platforms | iPhone and iPad: App Store in Canada and the Philippines. Android: Google Play testing, invite by email | Home "Get the game", support "Where can I get Road Rage?" and testing sections, press Release row, meta descriptions | App Store Connect availability (iTunes lookup per country), Play Console track | Step 2 above. Never state a Play Store launch date until it is live |
+| Store name and links | "Road Rage '99"; `https://apps.apple.com/ca/app/road-rage-99/id6818857687` and `/ph/` | Home, press Facts, support FAQ | iTunes lookup `trackName`, `trackViewUrl` | Both links return 200 |
+| Age rating | 13+ | Press Facts, privacy section 9 | App Store page, Play Console content rating | The App Store page shows 13+ |
+| Controls | Gestures (touch), controller, keyboard; no Buttons scheme (retired in 1.1.0) | Support "What are the controls?", "How do I reverse?" | `Assets/Scripts/UI/Tutorial/ControlsGuide.cs`, `Assets/Scripts/Input/RoadRageInputActions.inputactions` | Compare gesture text and bindings |
+| Menu paths | Options (top right) > CONTROLS (HOW TO PLAY, VIBRATION, REDUCE MOTION), GAME (PLAY INTRO, RESET TIPS, SHARE STATS, PERSONALIZED ADS), ACCOUNT (RESTORE PURCHASES) | Support FAQ, privacy sections 3 and 4 | `Assets/UI/Menu.uxml` (`options-*` buttons) | Labels and pages still match |
+| Purchases | Remove Ads, Gas Money packs, cars, Super Juggernaut starts (packs of 3) | Support "What can I buy?", privacy section 6 | `Assets/Resources/Monetization.asset` | Product list unchanged |
+| Privacy: services | Unity LevelPlay with ironSource and Unity Ads; Unity Analytics (opt-in); Unity Remote Config (at launch); Unity Cloud Diagnostics; Unity IAP; Game Center with iCloud key-value cloud save; Google Play Games with Saved Games | Privacy sections 1 to 7 | `Assets/LevelPlay/Editor/*Dependencies.xml` (ad adapters), `Assets/Scripts/Telemetry/`, `Assets/Scripts/Monetization/AdsRemoteConfig.cs`, `Assets/Modules/PlatformServices/Backends/` | A new ad adapter, SDK, backend or data flow means a privacy update (and a new "Last updated" date) |
+| Privacy: analytics events | Level start/finish/fail/quit (incl. steering setting), RAGE MODE, tutorial and hints, alleys, story scenes, achievements, Snafu garden picks, smash milestones, ads (incl. network and ad unit), store and purchases | Privacy section 4 | `Docs/Analytics.json` | Every event a store build can send is covered. Not covered yet because not shipped to players: `crtGame` (garage TV games, Unreleased), `coopSession`, `coopError`, `shotgunEnd`, `soccerMatchStart`, `soccerMatchEnd`, `titleChoice` (multiplayer builds only) |
+| Privacy date | Last updated 2026-10-31 | Privacy page body, meta description, OpenGraph description | This repo | Changes with every privacy edit |
+| Screenshot set | 10 shots from the **1.1.3** store set (iPhone Duo folder, 2853x2007, resized to 1400x985 WebP), current dot-matrix fonts; the 10 level shots (1400x644) are from the 1.0.4 refresh (#8), older HUD font; `rage-mode.mp4` clip from #5, older HUD font | Home galleries, press Screenshots | `~/Desktop/RoadRage-<version>-store/` | A newer store set exists, or the UI or fonts changed in a release |
+| app-ads.txt | Unity / LevelPlay authorized sellers; last refreshed 2026-10-31 (#10, monetrix.ai and start.io resellers added) | `/app-ads.txt` | Unity LevelPlay and Unity Monetization dashboards (app-ads.txt section) | The dashboard list differs from the file. Only change it from the dashboard |
+| Developer | Road Rage Games LLC, 2108 N St, Ste N, Sacramento, CA 95816 | Footer, press Facts, privacy section 13 | Company records; App Store Connect seller | Note: the App Store still lists the seller as an individual (2026-10-31) |

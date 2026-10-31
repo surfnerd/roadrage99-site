@@ -18,10 +18,10 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
-      - name: Stage the site (skip git and workflow files)
+      - name: Stage the site (skip git, workflow and checklist files)
         run: |
           mkdir _site
-          rsync -a --exclude '.git' --exclude '.github' --exclude '_site' ./ _site/
+          rsync -a --exclude '.git' --exclude '.github' --exclude '_site' --exclude 'SITE_CHECKLIST.md' ./ _site/
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
