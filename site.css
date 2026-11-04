@@ -44,6 +44,8 @@ main{padding-bottom:3rem}
 main li{margin:.35rem 0}
 .doc{max-width:46rem}
 .doc h2{margin-top:2.25rem}
+/* French headings run long (CONFIDENTIALITÉ): let them hyphenate rather than overflow a small phone */
+:lang(fr) .doc h1,:lang(fr) .doc h2{hyphens:auto;-webkit-hyphens:auto;overflow-wrap:break-word}
 details{background:var(--panel);border:2px solid var(--line);border-radius:.5rem;margin:.6rem 0;padding:.2rem 1rem}
 summary{cursor:pointer;font:1.05rem var(--body);padding:.6rem 0}
 details[open]{border-color:var(--yellow)}
